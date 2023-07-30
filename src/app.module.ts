@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { CatsdbModule } from './repositories/cats/cats-db.modules';
+import { PicturesModule } from './pictures/pictures.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    MongooseModule.forRootAsync({
+      useFactory: () => ({
+        uri: process.env.MY_DATABASE,
+      }),
+    }),
+    CatsdbModule,
+    PicturesModule,
+    HttpModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
