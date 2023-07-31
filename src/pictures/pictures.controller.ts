@@ -30,26 +30,13 @@ export class PicturesController {
       body,
       process.env.CAT_API_KEY,
     );
+    // const token = this.authService.signTokenWithImageId(image.id);
+
     return { message: 'Imagen marcada como favorita', image };
   }
 
   @Get('favorites')
   getAllFavoriteImages(): CreatePictureDto[] {
     return this.picturesService.getAllFavoriteImages();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.picturesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePictureDto: UpdatePictureDto) {
-    return this.picturesService.update(+id, updatePictureDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.picturesService.remove(+id);
   }
 }

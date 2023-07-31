@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { CreatePictureDto } from './dto/create-picture.dto';
 import { UpdatePictureDto } from './dto/update-picture.dto';
 import { HttpService } from '@nestjs/axios';
@@ -61,6 +65,11 @@ export class PicturesService {
       width: image.width,
       height: image.height,
     };
+    if (this.favoriteImages.some((image) => image.id === favoriteImage.id)) {
+      throw new BadRequestException(
+        `La imagen con id '${favoriteImage.id}' ya está marcada como favorita.`,
+      );
+    }
     this.favoriteImages.push(favoriteImage); // Almacenar la imagen marcada como favorito
 
     return favoriteImage;
@@ -68,25 +77,5 @@ export class PicturesService {
 
   getAllFavoriteImages(): CreatePictureDto[] {
     return this.favoriteImages; // Obtener todas las imágenes marcadas como favoritas
-  }
-
-  create(createPictureDto: CreatePictureDto) {
-    return 'This action adds a new picture';
-  }
-
-  findAll() {
-    return `This action returns all pictures`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} picture`;
-  }
-
-  update(id: number, updatePictureDto: UpdatePictureDto) {
-    return `This action updates a #${id} picture`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} picture`;
   }
 }

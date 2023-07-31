@@ -1,73 +1,52 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Proyecto de NestJS - CRUD de Gatos y Obtención de Imágenes Aleatorias
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este proyecto es una aplicación web desarrollada con NestJS, MongoDB y TypeScript. Consiste en un CRUD (Create, Read, Update, Delete) para gestionar gatos, accesible a través de la ruta `/cats`. Además, se obtienen imágenes aleatorias de la API https://thecatapi.com/.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requisitos previos
 
-## Description
+Antes de ejecutar este proyecto, asegúrate de tener instalado lo siguiente:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Node.js y npm (Node Package Manager)
+- MongoDB (asegúrate de que el servidor de MongoDB esté en ejecución)
 
-## Installation
+## Instalación
 
-```bash
-$ npm install
+1. Clona este repositorio en tu máquina local.
+2. Navega al directorio del proyecto y ejecuta `npm install` para instalar las dependencias.
+
+## Variables de entorno
+
+Crear un archivo llamado .env al mismo nivel que la carpeta src que contendra lo siguiente:
+
+```
+MY_DATABASE = url de la base de datos
+CAT_API_KEY = apiKey-otorgada-por-la-api-de-imagenes
+API_URL = https://api.thecatapi.com/v1/images
 ```
 
-## Running the app
+## Ejecución
 
-```bash
-# development
-$ npm run start
+Una vez configurada la base de datos, puedes iniciar la aplicación mediante el siguiente comando:
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+npm run start:dev
 ```
 
-## Test
+La aplicación estará disponible en `http://localhost:3000`.
 
-```bash
-# unit tests
-$ npm run test
+## Endpoints
 
-# e2e tests
-$ npm run test:e2e
+La aplicación ofrece los siguientes endpoints:
 
-# test coverage
-$ npm run test:cov
-```
+- **CRUD de Gatos**
 
-## Support
+  - `GET /cats`: Obtiene una lista de todos los gatos registrados.
+  - `GET /cats/:id`: Obtiene un gato específico por su ID.
+  - `POST /cats`: Crea un nuevo gato. Los datos del gato se envían en el cuerpo de la solicitud (por ejemplo, mediante JSON).
+  - `PUT /cats/:id`: Actualiza los datos de un gato existente por su ID. Los nuevos datos se envían en el cuerpo de la solicitud.
+  - `DELETE /cats/:id`: Elimina un gato existente por su ID.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- **Obtención de Imágenes Aleatorias**
+  - `GET /images`: Obtiene una imagen aleatoria de la API de imágenes.
+  - `POST /images/favorites`: A traves de un id pasado por body retorna la imagen guardada como favorito
+  - `GET /images/favorites`: Obtiene las imagenes guardadas como favorito
